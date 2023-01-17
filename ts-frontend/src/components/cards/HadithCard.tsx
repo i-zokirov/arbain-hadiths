@@ -1,5 +1,13 @@
 import React from "react";
-import { Card, CardHeader, Heading, CardBody, Text } from "@chakra-ui/react";
+import {
+    Card,
+    CardHeader,
+    Heading,
+    CardBody,
+    Text,
+    ListItem,
+    UnorderedList,
+} from "@chakra-ui/react";
 const HadithCard: React.FC<{ no: number; hadith: string }> = ({
     no,
     hadith,
@@ -12,9 +20,25 @@ const HadithCard: React.FC<{ no: number; hadith: string }> = ({
                 </Heading>
             </CardHeader>
             <CardBody>
-                {hadith.split("\n").map((p, i) => (
-                    <Text key={i}>{p}</Text>
-                ))}
+                {hadith.split("\n").map((p, i) => {
+                    if (p.includes("$unorderedlist")) {
+                        return (
+                            <UnorderedList>
+                                {p
+                                    .split("$unorderedlist")
+                                    .map((li, indx) =>
+                                        indx === 0 ? (
+                                            <Text key={indx}>{li}</Text>
+                                        ) : (
+                                            <ListItem key={indx}>{li}</ListItem>
+                                        )
+                                    )}
+                            </UnorderedList>
+                        );
+                    } else {
+                        return <Text key={i}>{p}</Text>;
+                    }
+                })}
             </CardBody>
         </Card>
     );

@@ -35,10 +35,27 @@ export default function SidebarWithHeader({
                     <SidebarContent onClose={onClose} />
                 </DrawerContent>
             </Drawer>
-            {/* mobilenav */}
+
             <MobileNav onOpen={onOpen} />
             <Box ml={{ base: 0, md: 80 }} p="4">
                 {children}
+            </Box>
+            <Box
+                ml={{ base: 0, md: 80 }}
+                p="4"
+                position={"fixed"}
+                bottom={0}
+                bg={useColorModeValue("gray.100", "gray.900")}
+                width="full"
+            >
+                © 2023.{" "}
+                <a
+                    href="https://n.ziyouz.com/books/islomiy/hadis/Imom%20Navaviy.%20Arbain%20hadis.pdf"
+                    target={"_blank"}
+                    rel="noreferrer"
+                >
+                    Manba - Ziyouz kutbxonasi
+                </a>
             </Box>
         </Box>
     );

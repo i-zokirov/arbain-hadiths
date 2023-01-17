@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
     Box,
     CloseButton,
@@ -25,6 +25,7 @@ import { AiOutlineBook } from "react-icons/ai";
 import SearchBar from "./SearchBar";
 import NestedNavItem from "./NestedNavItem";
 import { FaBookOpen } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 interface LinkItemProps {
     name: string;
     icon: IconType;
@@ -33,11 +34,10 @@ interface LinkItemProps {
 const LinkItems: Array<LinkItemProps> = [
     { name: "Muallif Haqida", icon: FiHome },
     { name: "Hadislar", icon: FaBookOpen },
-    { name: "Aloqa", icon: CiPhone },
 ];
 
 const children = [];
-for (let i = 0; i <= 40; i++) {
+for (let i = 0; i <= 41; i++) {
     children.push({ title: `${i + 1}-hadis` });
 }
 
@@ -49,6 +49,14 @@ interface SidebarProps extends BoxProps {
 
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
     const [selectedWindow, setSelectedWindow] = useState<string | null>(null);
+    // const navigate = useNavigate();
+    // useEffect(() => {
+    //     if (selectedWindow === "Aloqa") {
+    //         navigate("/aloqa");
+    //     } else {
+    //         navigate("/");
+    //     }
+    // }, [selectedWindow]);
 
     const handleWindowClick = (title: string) => {
         setSelectedWindow(title);
@@ -92,47 +100,49 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
                 />
             </Flex>
             <Divider />
-            <Box padding="5">
+            {/* <Box padding="5">
                 <SearchBar />
-            </Box>
-            {LinkItems.map((link, index) => (
-                <React.Fragment key={index}>
-                    <Box marginTop={"1"}>
-                        <NavItem
-                            key={link.name}
-                            icon={link.icon}
-                            selected={link.name === selectedWindow}
-                            onClick={() => handleWindowClick(link.name)}
-                        >
-                            {link.name}
-                        </NavItem>
-                    </Box>
-                    {link.nested?.length && (
-                        <React.Fragment>
-                            <Collapse
-                                animateOpacity
-                                in={link.name === selectedWindow}
+            </Box> */}
+            <Box paddingTop="50px">
+                {LinkItems.map((link, index) => (
+                    <React.Fragment key={index}>
+                        <Box marginTop={"1"}>
+                            <NavItem
+                                key={link.name}
+                                icon={link.icon}
+                                selected={link.name === selectedWindow}
+                                onClick={() => handleWindowClick(link.name)}
                             >
-                                <Box
-                                    style={{ padding: "8px 3px 8px 8px" }}
-                                    overflowY={"scroll"}
-                                    maxHeight="50vh"
+                                {link.name}
+                            </NavItem>
+                        </Box>
+                        {link.nested?.length && (
+                            <React.Fragment>
+                                <Collapse
+                                    animateOpacity
+                                    in={link.name === selectedWindow}
                                 >
-                                    {link.nested.map((item, index) => (
-                                        <NestedNavItem
-                                            key={index}
-                                            nav={item.title}
-                                            onClick={onClose}
-                                        >
-                                            {item.title}
-                                        </NestedNavItem>
-                                    ))}
-                                </Box>
-                            </Collapse>
-                        </React.Fragment>
-                    )}
-                </React.Fragment>
-            ))}
+                                    <Box
+                                        style={{ padding: "8px 3px 8px 8px" }}
+                                        overflowY={"scroll"}
+                                        maxHeight="50vh"
+                                    >
+                                        {link.nested.map((item, index) => (
+                                            <NestedNavItem
+                                                key={index}
+                                                nav={item.title}
+                                                onClick={onClose}
+                                            >
+                                                {item.title}
+                                            </NestedNavItem>
+                                        ))}
+                                    </Box>
+                                </Collapse>
+                            </React.Fragment>
+                        )}
+                    </React.Fragment>
+                ))}
+            </Box>
         </Box>
     );
 };

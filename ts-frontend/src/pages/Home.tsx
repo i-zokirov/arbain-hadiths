@@ -6,7 +6,7 @@ import hadiths from "../data/hadislar";
 import HadithCard from "../components/cards/HadithCard";
 const Home = () => {
     return (
-        <Box>
+        <Box marginTop={"15vh"}>
             <section style={{ margin: "15px" }} id={`muallif-haqida`}>
                 <AboutCard />
             </section>
@@ -14,7 +14,7 @@ const Home = () => {
                 <section
                     id={`${hadith.no}-hadis`}
                     key={`${hadith.no}-hadis`}
-                    style={{ margin: "15px" }}
+                    style={{ margin: "15px " }}
                 >
                     <HadithCard no={hadith.no} hadith={hadith.hadith} />
                 </section>
